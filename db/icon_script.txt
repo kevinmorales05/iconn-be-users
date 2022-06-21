@@ -1,0 +1,306 @@
+CREATE TABLE "Address" (
+  "id_address" serial,
+  "street" varchar(255),
+  "municipality" varchar(255),
+  "state" varchar(255),
+  "country" varchar(255),
+  "user_id" bigint,
+  "longitude" numeric(17,9),
+  "latitude" numeric(17,9),
+  "postal_code" int,
+  CONSTRAINT "_copy_16" PRIMARY KEY ("id_address")
+);
+
+CREATE TABLE "Category" (
+  "category_id" smallserial,
+  "name" varchar(255),
+  "description" varchar(255),
+  "image" varchar(255),
+  "createdat" timestamp,
+  "updatedat" timestamp,
+  "status" boolean,
+  CONSTRAINT "_copy_12" PRIMARY KEY ("category_id")
+);
+
+CREATE TABLE "Coffe_Reward" (
+  "coffe_reward_id" serial,
+  "user_id" bigint,
+  "date_last_consume" timestamp,
+  "date_last_reward" timestamp,
+  "status" boolean,
+  CONSTRAINT "_copy_6" PRIMARY KEY ("coffe_reward_id")
+);
+
+CREATE TABLE "Cupons" (
+  "cupon_id" int NOT NULL,
+  "description" varchar(255),
+  "product_id" int,
+  "status" boolean,
+  "createdat" timestamp,
+  "updatedat" timestamp,
+  "instuctions" varchar(255),
+  PRIMARY KEY ("cupon_id")
+);
+
+CREATE TABLE "Delivery" (
+  "delivery_id" serial,
+  "order_id" bigint,
+  "latitude" numeric(17,9),
+  "longitude" numeric(17,9),
+  "createdat" timestamp,
+  "dateDelivery" timestamp,
+  "store_id" bigint,
+  "status" boolean,
+  "delivery_category_id" int,
+  CONSTRAINT "_copy_7" PRIMARY KEY ("delivery_id")
+);
+
+CREATE TABLE "Delivery_Category" (
+  "delivery_category_id" smallserial,
+  "description" varchar(255),
+  PRIMARY KEY ("delivery_category_id")
+);
+
+CREATE TABLE "Delivery_Evaluation" (
+  "delivery_evaluation_id" serial,
+  "user_id" int4,
+  "store_id" bigint,
+  "order_id" bigint,
+  "service_category_id" bigint,
+  "score" varchar(255),
+  "score_date" timestamp,
+  PRIMARY KEY ("delivery_evaluation_id")
+);
+
+CREATE TABLE "Fiscal_Data" (
+  "fiscal_data_id" serial,
+  "rfc" varchar(255),
+  "name" varchar(255),
+  "email" varchar(255),
+  "cfdi" varchar(255),
+  "street" varchar(255),
+  "outside_number" int4,
+  "suburb" varchar(255),
+  "municipality" varchar(255),
+  "state" varchar(255),
+  "city" varchar(255),
+  "country" varchar(255),
+  "postal_code" varchar(255),
+  "createdat" timestamp,
+  "updatedat" timestamp,
+  "status" boolean,
+  CONSTRAINT "_copy_3" PRIMARY KEY ("fiscal_data_id")
+);
+
+CREATE TABLE "Gender" (
+  "gender_id" smallserial,
+  "description" varchar(255),
+  "createdat" timestamp,
+  "updatedat" timestamp,
+  "status" boolean,
+  CONSTRAINT "_copy_15" PRIMARY KEY ("gender_id")
+);
+
+CREATE TABLE "Invoice" (
+  "invoice_id" serial,
+  "order_ticket_id" bigint,
+  "fiscal_data_id" bigint,
+  "purchase_date" date,
+  CONSTRAINT "_copy_4" PRIMARY KEY ("invoice_id")
+);
+
+CREATE TABLE "Litter_Reward" (
+  "litter_reward_id" serial,
+  "user_id" bigint,
+  "date_last_consume" timestamp,
+  "date_last_reward" timestamp,
+  "status" boolean,
+  CONSTRAINT "_copy_5" PRIMARY KEY ("litter_reward_id")
+);
+
+CREATE TABLE "Order_Detail" (
+  "order_detail_id" serial,
+  "product_id" serial2,
+  "quantity" int2,
+  PRIMARY KEY ("order_detail_id")
+);
+
+CREATE TABLE "Order_Tickets" (
+  "order_ticket_id" serial,
+  "user_id" bigint,
+  "store_id" bigint,
+  "order_detail_id" bigint,
+  "total_pay" numeric(17,9),
+  "purchase_data" varchar(255),
+  PRIMARY KEY ("order_ticket_id")
+);
+
+CREATE TABLE "Otps" (
+  "otp_id" serial,
+  "number" bigint,
+  "email" varchar(255),
+  "creation_date" timestamp,
+  "until_validation" varchar(255),
+  CONSTRAINT "_copy_1" PRIMARY KEY ("otp_id")
+);
+
+CREATE TABLE "Product" (
+  "product_id" serial,
+  "name" varchar(255),
+  "sku_code" varchar(255),
+  "price" numeric(17,9),
+  "image" varchar(255),
+  "description" varchar(255),
+  "availability" boolean,
+  "promotion_id" int,
+  "category_id" int,
+  "createdat" timestamp,
+  "updatedat" timestamp,
+  "status" boolean,
+  CONSTRAINT "_copy_14" PRIMARY KEY ("product_id")
+);
+
+CREATE TABLE "Promotion" (
+  "promotion_id" smallserial,
+  "name" varchar(255),
+  "description" varchar(255),
+  "createdat" timestamp,
+  "time_finish" timestamp,
+  "time_availability" timestamp,
+  "discount" numeric(17,9),
+  CONSTRAINT "_copy_13" PRIMARY KEY ("promotion_id")
+);
+
+CREATE TABLE "Service_Category" (
+  "service_category_id" serial,
+  "name" varchar(255),
+  "description" varchar(255),
+  "image" varchar(255),
+  CONSTRAINT "_copy_2" PRIMARY KEY ("service_category_id")
+);
+
+CREATE TABLE "Service_Station" (
+  "service_station_id" serial,
+  "name" varchar(255),
+  "createdat" timestamp,
+  "updatedat" timestamp,
+  "status" boolean,
+  "address_id" bigint,
+  CONSTRAINT "_copy_8" PRIMARY KEY ("service_station_id")
+);
+
+CREATE TABLE "Sign_App_Mode" (
+  "sign_app_mode_id" smallserial,
+  "description" varchar(255),
+  PRIMARY KEY ("sign_app_mode_id")
+);
+
+CREATE TABLE "Stock" (
+  "stock_id" serial,
+  "name" varchar(255),
+  "product_id" bigint,
+  "store_id" bigint,
+  "quantity" varchar(255),
+  CONSTRAINT "_copy_11" PRIMARY KEY ("stock_id")
+);
+
+CREATE TABLE "Store" (
+  "store_id" serial,
+  "name" varchar(255),
+  "address" varchar(255),
+  "telephone" varchar(255),
+  "city" varchar(255),
+  "address_id" bigint,
+  CONSTRAINT "_copy_9" PRIMARY KEY ("store_id")
+);
+
+CREATE TABLE "Terms_Conditions" (
+  "terms_conditions_id" serial NOT NULL,
+  "terms_of_use" varchar(255),
+  "notice_privacy" varchar(255),
+  "createdat" timestamp,
+  "updatedat" timestamp,
+  "status" boolean,
+  PRIMARY KEY ("terms_conditions_id")
+);
+
+CREATE TABLE "Users" (
+  "user_id" serial,
+  "name" varchar(255),
+  "lastName" varchar(255),
+  "email" varchar(255),
+  "pass" varchar(255),
+  "telephone" varchar(255),
+  "birthday" date,
+  "gender_id" int,
+  "photo" varchar(255),
+  "termsAndConditions" boolean,
+  "longitude" numeric(17,9),
+  "latitude" numeric(17,9),
+  "createdat" timestamp,
+  "updatedat" timestamp,
+  "status" boolean,
+  "sign_app_mode_id" int,
+  "secret_key" varchar(255),
+  CONSTRAINT "_copy_10" PRIMARY KEY ("user_id")
+);
+
+ALTER TABLE "Address" ADD CONSTRAINT "id_user_address" FOREIGN KEY ("user_id") REFERENCES "Users" ("user_id");
+ALTER TABLE "Coffe_Reward" ADD CONSTRAINT "coffe_reward_user" FOREIGN KEY ("user_id") REFERENCES "Users" ("user_id");
+ALTER TABLE "Cupons" ADD CONSTRAINT "cupon_product" FOREIGN KEY ("product_id") REFERENCES "Product" ("product_id");
+ALTER TABLE "Delivery" ADD CONSTRAINT "delivery_store" FOREIGN KEY ("store_id") REFERENCES "Store" ("store_id");
+ALTER TABLE "Delivery" ADD CONSTRAINT "delivery_delivery_category" FOREIGN KEY ("delivery_category_id") REFERENCES "Delivery_Category" ("delivery_category_id");
+ALTER TABLE "Delivery_Evaluation" ADD CONSTRAINT "delivery_evaluation_store" FOREIGN KEY ("store_id") REFERENCES "Store" ("store_id");
+ALTER TABLE "Delivery_Evaluation" ADD CONSTRAINT "delivery_evaluation_service_category" FOREIGN KEY ("service_category_id") REFERENCES "Service_Category" ("service_category_id");
+ALTER TABLE "Invoice" ADD CONSTRAINT "invoce_fiscal_data" FOREIGN KEY ("fiscal_data_id") REFERENCES "Fiscal_Data" ("fiscal_data_id");
+ALTER TABLE "Invoice" ADD CONSTRAINT "invoce_order_ticket" FOREIGN KEY ("order_ticket_id") REFERENCES "Order_Tickets" ("order_ticket_id");
+ALTER TABLE "Litter_Reward" ADD CONSTRAINT "litter_reward_user" FOREIGN KEY ("user_id") REFERENCES "Users" ("user_id");
+ALTER TABLE "Order_Detail" ADD CONSTRAINT "order_detail_product" FOREIGN KEY ("product_id") REFERENCES "Product" ("product_id");
+ALTER TABLE "Order_Tickets" ADD CONSTRAINT "order_ticket_user" FOREIGN KEY ("user_id") REFERENCES "Users" ("user_id");
+ALTER TABLE "Order_Tickets" ADD CONSTRAINT "oder_ticket_store" FOREIGN KEY ("store_id") REFERENCES "Store" ("store_id");
+ALTER TABLE "Order_Tickets" ADD CONSTRAINT "order_ticket_order_detail" FOREIGN KEY ("order_detail_id") REFERENCES "Order_Detail" ("order_detail_id");
+ALTER TABLE "Product" ADD CONSTRAINT "product_promotion" FOREIGN KEY ("promotion_id") REFERENCES "Promotion" ("promotion_id");
+ALTER TABLE "Product" ADD CONSTRAINT "product_category" FOREIGN KEY ("category_id") REFERENCES "Category" ("category_id");
+ALTER TABLE "Service_Station" ADD CONSTRAINT "service_station_address" FOREIGN KEY ("service_station_id") REFERENCES "Address" ("id_address");
+ALTER TABLE "Stock" ADD CONSTRAINT "stock_product" FOREIGN KEY ("product_id") REFERENCES "Product" ("product_id");
+ALTER TABLE "Stock" ADD CONSTRAINT "stock_store" FOREIGN KEY ("store_id") REFERENCES "Store" ("store_id");
+ALTER TABLE "Store" ADD CONSTRAINT "store_address" FOREIGN KEY ("store_id") REFERENCES "Address" ("id_address");
+ALTER TABLE "Users" ADD CONSTRAINT "user_gender" FOREIGN KEY ("gender_id") REFERENCES "Gender" ("gender_id");
+ALTER TABLE "Users" ADD CONSTRAINT "user_sign_app_mode" FOREIGN KEY ("sign_app_mode_id") REFERENCES "Sign_App_Mode" ("sign_app_mode_id");
+
+
+INSERT INTO "Gender" (description,createdat,updatedat,status) VALUES ('Mujer','2021-01-01','2021-01-01',TRUE);
+INSERT INTO "Gender" (description,createdat,updatedat,status) VALUES ('Hombre','2021-01-01','2021-01-01',TRUE);
+INSERT INTO "Gender" (description,createdat,updatedat,status) VALUES ('Otro genero','2021-01-01','2021-01-01',TRUE);
+INSERT INTO "Gender" (description,createdat,updatedat,status) VALUES ('Prefiero no decir','2021-01-01','2021-01-01',TRUE);
+
+INSERT INTO "Sign_App_Mode" (description) VALUES ('Redes sociales');
+INSERT INTO "Sign_App_Mode" (description) VALUES ('Normal');
+
+INSERT INTO "Users" ("name","lastName",email,pass,telephone,birthday,gender_id,photo,"termsAndConditions",longitude,latitude,createdat,updatedat,status,sign_app_mode_id) VALUES 
+('Alberto','Peña','alberto.pena@gmail.com','apc313','5610745505','1988-05-01',1,'foto1',TRUE,-93.02443927963999,19.40968209566242,'2021-01-01 02:02:02','2020-05-05 01:01:01',TRUE,1);
+INSERT INTO "Users" ("name","lastName",email,pass,telephone,birthday,gender_id,photo,"termsAndConditions",longitude,latitude,createdat,updatedat,status,sign_app_mode_id) VALUES 
+('Juan','Ramirez','juan.ramirez@gmail.com','jrx456','3309060201','1985-09-08',1,'foto2',FALSE,-90.02443927963978,19.40968209566241,'2019-06-06 04:09:52','2020-01-01 02:02:02',TRUE,1);
+INSERT INTO "Users" ("name","lastName",email,pass,telephone,birthday,gender_id,photo,"termsAndConditions",longitude,latitude,createdat,updatedat,status,sign_app_mode_id) VALUES 
+('Saul','Hernandez','saul.hernandez@gmail.com','sht567','1111328822','1970-01-03',1,'foto3',TRUE,-92.02443927963978,19.40968209566249,'2012-08-08 05:22:32','2019-09-09 09:29:29',TRUE,1);
+INSERT INTO "Users" ("name","lastName",email,pass,telephone,birthday,gender_id,photo,"termsAndConditions",longitude,latitude,createdat,updatedat,status,sign_app_mode_id) VALUES 
+('Mireya','Mendoza','mireya.mendoza@gmail.com','mmf910','7710746644','1991-07-07',1,'foto4',FALSE,-99.02443927963977,19.40968209566243,'2010-04-04 04:04:04','2011-11-11 11:11:11',TRUE,1);
+INSERT INTO "Users" ("name","lastName",email,pass,telephone,birthday,gender_id,photo,"termsAndConditions",longitude,latitude,createdat,updatedat,status,sign_app_mode_id) VALUES 
+('Laura','Lara','laura.lara@gmail.com','lle345','2210245588','1978-08-08',1,'foto5',TRUE,-92.02443927963978,18.40968209566222,'2019-08-10 10:09:08','2005-05-05 05:05:05',TRUE,1);
+INSERT INTO "Users" ("name","lastName",email,pass,telephone,birthday,gender_id,photo,"termsAndConditions",longitude,latitude,createdat,updatedat,status,sign_app_mode_id) VALUES 
+('Sandra','Sanchez','sandra.sanchez@gmail.com','ssa123','5511885500','1982-02-02',1,'foto6',FALSE,-99.02443927963973,19.40968209566200,'1980-03-07 09:08:07','2008-12-11 10:09:08',TRUE,1);
+INSERT INTO "Users" ("name","lastName",email,pass,telephone,birthday,gender_id,photo,"termsAndConditions",longitude,latitude,createdat,updatedat,status,sign_app_mode_id) VALUES 
+('Marcela','Marquez','marcela.marquez@gmail.com','mmm987','6612418500','1979-03-06',1,'foto7',FALSE,-99.02443927963978,18.40968209566242,'1990-02-14 01:02:03','2004-04-04 04:05:06',TRUE,1);
+
+INSERT INTO "Otps" ("number",email,creation_date,until_validation) VALUES 
+(12345678,'alberto.pe.313@gmail.com','2012-04-01 11:09:08','x');
+INSERT INTO "Otps" ("number",email,creation_date,until_validation) VALUES 
+(37654321,'pablo.pe.219@gmail.com','2013-02-12 02:09:08','x');
+INSERT INTO "Otps" ("number",email,creation_date,until_validation) VALUES 
+(17654591,'nico.op.98@gmail.com','2014-08-25 05:09:08','x');
+INSERT INTO "Otps" ("number",email,creation_date,until_validation) VALUES 
+(81298374,'carmen.rm.919@gmail.com','2015-06-20 09:09:08','x');
+INSERT INTO "Otps" ("number",email,creation_date,until_validation) VALUES 
+(44382910,'nancy.pm.2000@gmail.com','2016-08-11 12:09:08','x');
+INSERT INTO "Otps" ("number",email,creation_date,until_validation) VALUES 
+(12382100,'marcelo.pk.1000@gmail.com','2022-06-14 20:43:50','x');
